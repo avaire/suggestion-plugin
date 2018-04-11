@@ -2,6 +2,7 @@ package com.avairebot.plugin.utility;
 
 import com.avairebot.commands.CommandMessage;
 import com.avairebot.contracts.commands.Command;
+import com.avairebot.contracts.commands.CommandSource;
 import com.avairebot.plugin.JavaPlugin;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Emote;
@@ -13,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@CommandSource(uri = "https://github.com/avaire/suggestion-plugin/blob/master/src/main/java/com/avairebot/plugin/utility/SuggestCommand.java")
 public class SuggestCommand extends Command {
 
     private final JavaPlugin plugin;
