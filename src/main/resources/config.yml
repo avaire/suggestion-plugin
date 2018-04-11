@@ -1,0 +1,90 @@
+
+#--------------------------------------------------------------------------
+# Welcome to the AvaIre Suggestion Plugin Configuration
+#--------------------------------------------------------------------------
+#
+# Below you'll find all the configurable options for plugin.
+#
+# The configuration is written in a format known as YAML, you can learn
+# more about the format at https://learnxinyminutes.com/docs/yaml
+#
+# Need to validate if the config has no errors and will pass Avas config
+# management system? Try out https://codebeautify.org/yaml-validator
+#
+# Got any questions? Contact the development team on the official support
+# server for Ava at https://avairebot.com/support
+#
+
+#--------------------------------------------------------------------------
+# Command Settings
+#--------------------------------------------------------------------------
+#
+# Below you'll find command related settings, with these settings you
+# can customize the !suggest command.
+#
+
+command-settings:
+
+  # This is the command description that should be displayed during
+  # !help command uses.
+  #
+  description: 'Suggest a feature to the server.'
+
+  # This is the usage instructions that should be displayed during
+  # the !help command uses and error messages.
+  #
+  usage-instructions:
+    - '`:command <message>` - Suggest the message.'
+
+  # This is the example instructions that should be displayed during
+  # the !help command uses and error messages.
+  #
+  usage-example:
+    - '`:command This is an awesome feature` - Suggests an awesome feature.'
+
+  # This is the cooldown in seconds, each user is limited
+  # to one use per-cooldown.
+  #
+  cooldown: 60
+
+#--------------------------------------------------------------------------
+# Suggestion Settings
+#--------------------------------------------------------------------------
+#
+# Below you'll find suggestion related settings.
+#
+
+suggestion:
+
+  # This in the minimum length of the suggestion, any suggestion that is
+  # equal to, or less than the number below will be ignored.
+  #
+  min-length: 30
+
+  # This is the ID of the channel that all suggestions should be sent to,
+  # the bot must have the following permissions for the channel in
+  # order to successfully send the suggestion message, and
+  # add the reactions.
+  #
+  # Text: Send Message, Text: Read Message, Text: Embed Links,
+  # Text: Ready Message History, Text: Add Reactions
+  #
+  channel-id: '284101116889661451'
+
+  # This is the ID for the "Yes" emote that should be added to the suggestion
+  # message, if an invalid ID is given no "yes" emote will be added and
+  # this option will just be ignored.
+  #
+  yes-emote: '319985232306765825'
+
+  # This is the ID for the "no" emote that should be added to the suggestion
+  # message, if an invalid ID is given no "no" emote will be added and
+  # this option will just be ignored.
+  #
+  no-emote: '319985629750624257'
+
+  # This is the success message that should be sent when the suggestion
+  # was successfully sent. This message will be auto deleted after
+  # 45 seconds.
+  #
+  success: 'Thank you for your suggestion! You can see your suggestion in the <#284101116889661451> channel.'
