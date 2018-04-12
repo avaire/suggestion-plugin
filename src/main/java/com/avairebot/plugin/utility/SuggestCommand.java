@@ -3,9 +3,10 @@ package com.avairebot.plugin.utility;
 import com.avairebot.commands.CommandMessage;
 import com.avairebot.contracts.commands.Command;
 import com.avairebot.contracts.commands.CommandSource;
-import com.avairebot.plugin.JavaPlugin;
+import com.avairebot.plugin.Suggestion;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Emote;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 
 import java.time.Instant;
@@ -17,12 +18,12 @@ import java.util.concurrent.TimeUnit;
 @CommandSource(uri = "https://github.com/avaire/suggestion-plugin/blob/master/src/main/java/com/avairebot/plugin/utility/SuggestCommand.java")
 public class SuggestCommand extends Command {
 
-    private final JavaPlugin plugin;
+    private final Suggestion plugin;
 
-    public SuggestCommand(JavaPlugin plugin) {
-        super(plugin);
+    public SuggestCommand(Suggestion suggestion) {
+        super(suggestion);
 
-        this.plugin = plugin;
+        this.plugin = suggestion;
     }
 
     @Override
@@ -103,25 +104,48 @@ public class SuggestCommand extends Command {
                 .setFooter("User ID: " + context.getAuthor().getId(), null)
                 .setTimestamp(Instant.now())
                 .build()
-        ).queue(message -> {
-            context.makeSuccess(plugin.getConfig().getString("suggestion.success", "Thank you for your suggestion!"))
-                    .queue(newMsg -> newMsg.delete().queueAfter(45, TimeUnit.SECONDS));
-
-            Emote yesEmote = avaire.getShardManager().getEmoteById(
-                    plugin.getConfig().getString("suggestion.yes-emote")
-            );
-            if (yesEmote != null) {
-                message.addReaction(yesEmote).queue();
-            }
-
-            Emote noEmote = avaire.getShardManager().getEmoteById(
-                    plugin.getConfig().getString("suggestion.no-emote")
-            );
-            if (noEmote != null) {
-                message.addReaction(noEmote).queue();
-            }
-        }, error -> context.makeWarning("Failed to send the suggestion message, please make sure I can send embed messages in the suggestion channel!").queue());
+        ).queue(message -> addReactionsAndSendSuccessMessage(context, message),
+                error -> context.makeWarning("Failed to send the suggestion message, please make sure I can send embed messages in the suggestion channel!")
+                        .queue()
+        );
 
         return true;
+    }
+
+    private void addReactionsAndSendSuccessMessage(CommandMessage context, Message message) {
+        context.makeSuccess(plugin.getConfig().getString("suggestion.success", "Thank you for your suggestion!"))
+                .queue(newMsg -> newMsg.delete().queueAfter(45, TimeUnit.SECONDS));
+
+        Emote yesEmote = getEmoteFromConfig("suggestion.yes-emote");
+        if (yesEmote != null) {
+            message.addReaction(yesEmote).queue();
+        }
+
+        Emote noEmote = getEmoteFromConfig("suggestion.no-emote");
+        if (noEmote != null) {
+            message.addReaction(noEmote).queue();
+        }
+    }
+
+    private Emote getEmoteFromConfig(String configPath) {
+        String path = plugin.getConfig().getString(configPath, null);
+        if (path == null) {
+            return null;
+        }
+
+        try {
+            Emote emoteById = plugin.getAvaire().getShardManager().getEmoteById(path);
+            if (emoteById != null) {
+                return emoteById;
+            }
+        } catch (NumberFormatException ignored) {
+            //
+        }
+
+        List<Emote> emotesByName = plugin.getAvaire().getShardManager().getEmotesByName(path, true);
+        if (emotesByName == null || emotesByName.isEmpty()) {
+            return null;
+        }
+        return emotesByName.get(0);
     }
 }

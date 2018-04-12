@@ -71,15 +71,17 @@ suggestion:
   #
   channel-id: '284101116889661451'
 
-  # This is the ID for the "Yes" emote that should be added to the suggestion
-  # message, if an invalid ID is given no "yes" emote will be added and
-  # this option will just be ignored.
+  # This is the ID or the name of the "Yes" emote that should be added to the
+  # suggestion message, if an invalid ID is given, the plugin will try and
+  # find the emote by name instead, if no "yes" emote was found no emote
+  # will be added and this option will just be ignored.
   #
   yes-emote: '319985232306765825'
 
-  # This is the ID for the "no" emote that should be added to the suggestion
-  # message, if an invalid ID is given no "no" emote will be added and
-  # this option will just be ignored.
+  # This is the ID or the name of the "No" emote that should be added to the
+  # suggestion message, if an invalid ID is given, the plugin will try and
+  # find the emote by name instead, if no "no" emote was found no emote
+  # will be added and this option will just be ignored.
   #
   no-emote: '319985629750624257'
 
