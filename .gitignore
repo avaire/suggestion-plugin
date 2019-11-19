@@ -5,6 +5,7 @@
 
 # Package Files #
 *.jar
+!gradle-wrapper.jar
 *.war
 *.ear
 
@@ -20,6 +21,7 @@ hs_err_pid*
 /*.iml
 
 # Compile location
+AvaIre.jar
 .gradle/*
 target/
 build/
