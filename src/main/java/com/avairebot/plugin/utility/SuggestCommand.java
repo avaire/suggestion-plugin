@@ -4,10 +4,10 @@ import com.avairebot.commands.CommandMessage;
 import com.avairebot.contracts.commands.Command;
 import com.avairebot.contracts.commands.CommandSource;
 import com.avairebot.plugin.Suggestion;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Emote;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.time.Instant;
 import java.util.Arrays;
